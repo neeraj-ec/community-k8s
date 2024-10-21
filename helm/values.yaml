@@ -1726,13 +1726,13 @@ jwt:
   ## @param jwt.secret The secret keybase which is used to encrypt / verify the tokens issued for authentication
   ## Please change this for production use !
   ##
-  secret: l56s23hjER4Pa0lGgZ658+yh9HC/u3ewlQ7zooNPMFI=
+  secret: --
 
 store:
   ## @param store.encryption-key The encryption key used to encrypt/decrypt provider credentials
   ## Please change this for production use !
   ##
-  encryption-key: 'sl0G7ZMmC5Lz3rESv9AOMC2AW9kOIpQp' # you need to change this !
+  encryption-key: '--' # you need to change this !
 
 ## @section Mongodb configuration
 ##
