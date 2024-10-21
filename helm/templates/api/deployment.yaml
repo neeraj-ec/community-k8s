@@ -35,7 +35,11 @@ spec:
         {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.api.serviceAccountName }}
+      serviceAccountName: {{ .Values.api.serviceAccountName }}
+      {{- else }}
       serviceAccountName: {{ template "novu.serviceAccountName" . }}
+      {{- end }}
       {{- include "novu.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.api.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.api.hostAliases "context" $) | nindent 8 }}
@@ -145,21 +149,27 @@ spec:
                 secretKeyRef:
                   name: {{ include "novu.s3.secretName" . }}
                   key: bucketName
+            {{- if .Values.externalS3.region }}
             - name: S3_REGION
               valueFrom :
                 secretKeyRef:
                   name: {{ include "novu.s3.secretName" . }}
                   key: region
+            {{- end }}
+            {{- if .Values.externalS3.accessKey }}
             - name: AWS_ACCESS_KEY_ID
               valueFrom :
                 secretKeyRef:
                   name: {{ include "novu.s3.secretName" . }}
                   key: accessKey
+            {{- end }}
+            {{- if .Values.externalS3.secretKey }}
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom :
                 secretKeyRef:
                   name: {{ include "novu.s3.secretName" . }}
                   key: secretKey
+            {{- end }}
             {{- end }}
             - name: JWT_SECRET
               valueFrom :
